@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karen Christina | Cyber Security Portfolio</title>
+    <!-- Three.js for true 3D Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #030712;
+            color: #00ffcc;
+            overflow-x: hidden;
+            background: #020617;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.15);
+            margin-bottom: 40px;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid #00ffcc;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #00ffcc;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ffcc;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        .hero-section {
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 60px;
+        }
+
+        .glitch-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .card-3d {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(16px);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(8deg) rotateY(-8deg);
+            border-color: #00ffcc;
+            box-shadow: 0 15px 35px rgba(0, 255, 204, 0.25);
+        }
+
+        .card-icon {
+            font-size: 38px;
+            color: #00ffcc;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px #00ffcc;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .skills-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pill {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            color: #00ffcc;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 60px;
+            color: #64748b;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container"></div>
+
+    <div class="main-wrapper">
+        <header>
+            <div class="brand">KC // SEC</div>
+            <div class="status-badge">
+                <div class="dot"></div>
+                SYSTEM ONLINE
+            </div>
+        </header>
+
+        <section class="hero-section">
+            <h1 class="glitch-title">Karen Christina</h1>
+            <p class="tagline">B.E. CSE (Cyber Security) Student @ Dr. Mahalingam College of Engineering & Technology, Pollachi.</p>
+        </section>
+
+        <div class="grid-cards">
+            <div class="card-3d">
+                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="card-title">Cyber Security Focus</div>
+                <div class="card-desc">Specialized in network vulnerability analysis, core security protocols, and ethical hacking fundamentals.</div>
+                <div class="skills-pills">
+                    <span class="pill">Network Security</span>
+                    <span class="pill">Ethical Hacking</span>
+                    <span class="pill">Security Protocols</span>
+                </div>
+            </div>
+
+            <div class="card-3d">
+                <div class="card-icon"><i class="fas fa-terminal"></i></div>
+                <div class="card-title">Core Programming</div>
+                <div class="card-desc">Strong problem-solving foundation with deep interest in failure analysis and algorithm optimization.</div>
+                <div class="skills-pills">
+                    <span class="pill">Python</span>
+                    <span class="pill">C</span>
+                    <span class="pill">C++</span>
+                </div>
+            </div>
+
+            <div class="card-3d">
+                <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                <div class="card-title">Environment & Tools</div>
+                <div class="card-desc">Hands-on experience with modern development environments, version control, and security toolsets.</div>
+                <div class="skills-pills">
+                    <span class="pill">VS Code</span>
+                    <span class="pill">Git & GitHub</span>
+                    <span class="pill">Linux Basics</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Built for Karen Christina &bull; Cyber Security Portfolio 2026
+        </footer>
+    </div>
+
+    <script>
+        // Three.js 3D Interactive Cyber Grid Background
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        // Grid & Particle Geometry
+        const geometry = new THREE.BufferGeometry();
+        const count = 800;
+        const positions = new Float32Array(count * 3);
+
+        for(let i=0; i<count*3; i++) {
+            positions[i] = (Math.random() - 0.5) * 15;
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.04,
+            color: 0x00ffcc,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        // 3D Wireframe Cyber Cube
+        const cubeGeo = new THREE.BoxGeometry(3, 3, 3);
+        const cubeMat = new THREE.MeshBasicMaterial({
+            color: 0x00ffcc,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const wireCube = new THREE.Mesh(cubeGeo, cubeMat);
+        scene.add(wireCube);
+
+        camera.position.z = 5;
+
+        // Mouse interaction for 3D rotation
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            particles.rotation.y += 0.001;
+            particles.rotation.x += 0.0005;
+
+            wireCube.rotation.x += 0.003;
+            wireCube.rotation.y += 0.005;
+
+            // Camera subtle dynamic move
+            camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY * 0.5 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
