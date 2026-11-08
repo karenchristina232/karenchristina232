@@ -11,3 +11,8 @@
 - **Languages:** Python, C, C++
 - **Tools:** VS Code, Turbo C, MS Office & PowerPoint
 - **Core Interests:** Failure Analysis in Coding, Hackathons & Problem Solving
+
+### 🌐 Live Portfolio
+Check out my 3D Cyber Security Portfolio here: 
+👉 [View Live Portfolio](https://karenchristina232.github.io/karenchristina232/)
+```[cite: 9]
