@@ -1,330 +1,574 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karen Christina | Cyber Security Portfolio</title>
-    <!-- Three.js for true 3D Canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
-        body {
-            background-color: #030712;
-            color: #00ffcc;
-            overflow-x: hidden;
-            background: #020617;
-        }
-
-        #canvas-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .main-wrapper {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        header {
-            width: 100%;
-            max-width: 1100px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 255, 204, 0.2);
-            border-radius: 16px;
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.15);
-            margin-bottom: 40px;
-        }
-
-        .brand {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #fff;
-            text-shadow: 0 0 10px #00ffcc;
-        }
-
-        .status-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid #00ffcc;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: #00ffcc;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #00ffcc;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 1; }
-            100% { opacity: 0.4; }
-        }
-
-        .hero-section {
-            text-align: center;
-            max-width: 800px;
-            margin-bottom: 60px;
-        }
-
-        .glitch-title {
-            font-size: 48px;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
-        }
-
-        .tagline {
-            font-size: 18px;
-            color: #94a3b8;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            width: 100%;
-            max-width: 1100px;
-        }
-
-        .card-3d {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(0, 255, 204, 0.2);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(16px);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-3d:hover {
-            transform: translateY(-10px) rotateX(8deg) rotateY(-8deg);
-            border-color: #00ffcc;
-            box-shadow: 0 15px 35px rgba(0, 255, 204, 0.25);
-        }
-
-        .card-icon {
-            font-size: 38px;
-            color: #00ffcc;
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px #00ffcc;
-        }
-
-        .card-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-
-        .card-desc {
-            color: #94a3b8;
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .skills-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .pill {
-            background: rgba(0, 255, 204, 0.1);
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            color: #00ffcc;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        footer {
-            margin-top: auto;
-            padding-top: 60px;
-            color: #64748b;
-            font-size: 13px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio | Cybersecurity Student</title>
+<meta name="description" content="Cybersecurity engineering student: ethical hacking, network defense, secure systems.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#020712;--blue:#2f7bff;--cyan:#38d9ff;--ice:#bfe9ff;--line:rgba(56,217,255,.2);--text:#cfe0f2;--dim:#7e95ad;--red:#ff4d6d;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 78% 22%,rgba(47,123,255,.28),transparent 55%),radial-gradient(ellipse at 8% 92%,rgba(56,217,255,.13),transparent 50%),radial-gradient(ellipse at 50% 125%,rgba(255,77,109,.08),transparent 50%),linear-gradient(rgba(56,217,255,.05) 1px,transparent 1px) 0 0/52px 52px,linear-gradient(90deg,rgba(56,217,255,.05) 1px,transparent 1px) 0 0/52px 52px}
+body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.7) 100%)}
+#net{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#beam{position:fixed;left:0;right:0;top:-160px;height:160px;z-index:1;pointer-events:none;background:linear-gradient(transparent,rgba(56,217,255,.07),transparent);animation:beam 9s linear infinite}
+@keyframes beam{to{transform:translateY(calc(100vh + 160px))}}
+@media(prefers-reduced-motion:reduce){#beam{display:none}}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+#prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));z-index:100;box-shadow:0 0 12px var(--cyan)}
+#cur{position:fixed;width:30px;height:30px;border:1px solid var(--cyan);border-radius:50%;pointer-events:none;z-index:200;transform:translate(-100px,-100px);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+#cur.big{width:56px;height:56px;margin:-13px 0 0 -13px;background:rgba(56,217,255,.1)}
+@media(hover:none){#cur{display:none}}
+#boot{position:fixed;inset:0;background:#01040a;z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;font-family:var(--mono);transition:opacity .9s,visibility .9s;cursor:pointer}
+#boot.off{opacity:0;visibility:hidden}
+#boot .t{font-family:var(--head);color:var(--cyan);letter-spacing:6px;font-size:.85rem}
+#boot .b{width:min(320px,70vw);height:2px;background:rgba(255,255,255,.1);overflow:hidden}
+#boot .b i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 14px var(--cyan);animation:load 1.8s ease forwards}
+@keyframes load{to{width:100%}}
+#boot small{color:var(--dim);font-size:.7rem}
+nav{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;background:rgba(2,7,18,.62);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{font-family:var(--head);font-weight:900;letter-spacing:3px;color:#fff;font-size:1rem}
+.logo i{color:var(--cyan);font-style:normal}
+nav ul{display:flex;gap:30px;list-style:none}
+nav a{color:var(--dim);text-decoration:none;font-family:var(--mono);font-size:.76rem;letter-spacing:1.5px;text-transform:uppercase;transition:.25s}
+nav a:hover{color:var(--cyan);text-shadow:0 0 12px var(--cyan)}
+.status{font-family:var(--mono);font-size:.7rem;color:var(--cyan);display:flex;align-items:center;gap:8px;letter-spacing:1px}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.25}}
+@media(max-width:900px){nav ul{display:none}}
+main,header,footer{position:relative;z-index:2}
+section{padding:120px 7vw 70px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-family:var(--mono);color:var(--cyan);font-size:.78rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px}
+h2{font-family:var(--head);font-size:clamp(1.8rem,4.2vw,3rem);font-weight:900;color:#fff;margin-bottom:12px;letter-spacing:1px}
+.sub{color:var(--dim);max-width:640px;margin-bottom:40px}
+#hero{padding-top:100px}
+.hero-in{max-width:720px}
+.hello{font-family:var(--mono);color:var(--cyan);margin-bottom:12px;font-size:.85rem;letter-spacing:4px}
+h1{font-family:var(--head);font-weight:900;line-height:1;color:#fff;letter-spacing:1px}
+h1 .n{display:block;font-size:clamp(2.3rem,6.6vw,5rem);text-shadow:0 0 40px rgba(56,217,255,.35)}
+h1 .r{display:block;font-size:clamp(1.3rem,3.6vw,2.7rem);margin-top:14px;background:linear-gradient(90deg,var(--cyan),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font-family:var(--mono);font-size:clamp(.9rem,2vw,1.2rem);margin:24px 0 16px;min-height:1.8em;color:var(--ice)}
+.cursor{display:inline-block;width:9px;height:1.05em;background:var(--cyan);vertical-align:-3px;animation:bl 1s steps(2) infinite}
+@keyframes bl{50%{opacity:0}}
+.lead{color:var(--dim);max-width:560px;font-size:1.02rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font-family:var(--mono);font-size:.7rem;padding:5px 13px;border:1px solid var(--line);color:var(--ice);background:rgba(47,123,255,.1);letter-spacing:1px}
+.btns{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 30px;font-family:var(--head);font-size:.78rem;font-weight:700;letter-spacing:2px;text-decoration:none;color:#fff;background:linear-gradient(90deg,var(--blue),#1a5be0);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));transition:.3s;border:0;cursor:pointer}
+.btn:hover{box-shadow:0 0 36px rgba(47,123,255,.7);transform:translateY(-2px);filter:brightness(1.2)}
+.btn.ghost{background:rgba(56,217,255,.08);color:var(--cyan);box-shadow:inset 0 0 0 1px var(--cyan)}
+.hud{position:absolute;right:5vw;bottom:40px;font-family:var(--mono);font-size:.68rem;color:var(--dim);text-align:right;line-height:1.9;letter-spacing:1px}
+.hud b{color:var(--cyan);font-weight:400}
+@media(max-width:900px){.hud{display:none}}
+.scroll{position:absolute;bottom:26px;left:7vw;font-family:var(--mono);font-size:.68rem;color:var(--dim);letter-spacing:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.card{--x:50%;--y:50%;position:relative;background:linear-gradient(160deg,rgba(10,24,52,.82),rgba(4,10,24,.88));border:1px solid var(--line);padding:30px;transition:transform .2s ease,border-color .3s,box-shadow .3s;transform-style:preserve-3d;overflow:hidden;cursor:pointer;backdrop-filter:blur(6px)}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--x) var(--y),rgba(56,217,255,.18),transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::before{opacity:1}
+.card:hover{border-color:var(--cyan);box-shadow:0 24px 70px -22px rgba(47,123,255,.6)}
+.card::after{content:"";position:absolute;top:0;right:0;width:24px;height:24px;border-top:2px solid var(--cyan);border-right:2px solid var(--cyan)}
+.num{font-family:var(--head);font-size:2.2rem;font-weight:900;color:rgba(56,217,255,.25);line-height:1;margin-bottom:10px}
+.card h3{font-family:var(--head);font-size:1rem;color:#fff;margin-bottom:8px;letter-spacing:1px}
+.card p{color:var(--dim);font-size:.9rem}
+.more{margin-top:16px;font-family:var(--mono);font-size:.7rem;color:var(--cyan);letter-spacing:2px}
+.lvl{margin-top:14px;height:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.lvl i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 10px var(--cyan);transition:width 1.6s cubic-bezier(.2,.8,.2,1)}
+.tag{font-family:var(--mono);font-size:.66rem;padding:2px 9px;border:1px solid var(--line);color:var(--cyan);margin:12px 6px 0 0;display:inline-block}
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:start}
+@media(max-width:900px){.about{grid-template-columns:1fr}}
+.about p{color:var(--dim);margin-bottom:16px}
+.about p b{color:#fff;font-weight:500}
+.code{background:rgba(1,5,14,.75);border:1px solid var(--line);font-family:var(--mono);font-size:.82rem;overflow:hidden}
+.code .bar{display:flex;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line);align-items:center}
+.code .bar i{width:9px;height:9px;border-radius:50%;background:var(--red)}
+.code .bar i:nth-child(2){background:#ffc53d}.code .bar i:nth-child(3){background:var(--cyan)}
+.code .bar span{margin-left:10px;color:var(--dim);font-size:.7rem}
+.code pre{padding:18px;white-space:pre-wrap}
+.k{color:var(--blue)}.s{color:var(--cyan)}.nn{color:#ffc53d}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-top:34px}
+.stat{padding:20px;border:1px solid var(--line);background:rgba(6,16,36,.7);text-align:center}
+.stat b{display:block;font-family:var(--head);font-size:2rem;color:#fff;text-shadow:0 0 20px rgba(56,217,255,.5)}
+.stat small{color:var(--dim);font-family:var(--mono);font-size:.68rem;letter-spacing:2px}
+.tl{position:relative;max-width:760px;padding-left:34px;border-left:1px solid var(--line)}
+.tl div{position:relative;margin-bottom:34px}
+.tl div::before{content:"";position:absolute;left:-41px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 14px var(--cyan)}
+.tl small{font-family:var(--mono);color:var(--cyan);font-size:.72rem;letter-spacing:2px}
+.tl h4{font-family:var(--head);color:#fff;font-size:1rem;margin:2px 0 4px}
+.tl p{color:var(--dim);font-size:.9rem}
+.term{max-width:860px;background:rgba(1,5,14,.8);border:1px solid var(--line);box-shadow:0 0 60px rgba(47,123,255,.12);font-family:var(--mono);font-size:.85rem}
+.term .bar{display:flex;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line);align-items:center}
+.term .bar i{width:9px;height:9px;border-radius:50%;background:var(--red)}
+.term .bar i:nth-child(2){background:#ffc53d}.term .bar i:nth-child(3){background:var(--cyan)}
+.term .bar span{margin-left:10px;color:var(--dim);font-size:.7rem}
+#out{padding:18px 18px 0;height:300px;overflow-y:auto;white-space:pre-wrap}
+#out a{color:var(--cyan)}
+.in{display:flex;gap:10px;padding:10px 18px 18px;align-items:center}
+.in span{color:var(--cyan);white-space:nowrap}
+.in input{flex:1;background:none;border:0;outline:0;color:#fff;font:inherit;caret-color:var(--cyan)}
+.hint{margin-top:14px;font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+.hint button{background:none;border:1px solid var(--line);color:var(--cyan);font:inherit;padding:3px 10px;margin:4px 6px 0 0;cursor:pointer}
+.hint button:hover{background:rgba(56,217,255,.1)}
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:1000px}
+.ct{display:block;text-decoration:none;color:inherit;padding:24px;border:1px solid var(--line);background:rgba(6,16,36,.75);transition:.3s;position:relative}
+.ct:hover{border-color:var(--cyan);transform:translateY(-6px);box-shadow:0 18px 50px -18px rgba(47,123,255,.6)}
+.ct small{font-family:var(--mono);color:var(--cyan);font-size:.68rem;letter-spacing:3px}
+.ct b{display:block;margin-top:6px;color:#fff;font-weight:500;word-break:break-all}
+.ct button{position:absolute;top:14px;right:14px;background:none;border:1px solid var(--line);color:var(--dim);font-family:var(--mono);font-size:.64rem;padding:3px 8px;cursor:pointer}
+.ct button:hover{color:var(--cyan);border-color:var(--cyan)}
+footer{text-align:center;padding:36px;color:var(--dim);font-family:var(--mono);font-size:.74rem;border-top:1px solid var(--line)}
+#modal{position:fixed;inset:0;z-index:150;background:rgba(1,4,10,.8);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:.3s}
+#modal.on{opacity:1;visibility:visible}
+.box{width:min(680px,100%);max-height:88vh;overflow-y:auto;background:linear-gradient(160deg,#08183a,#030a18);border:1px solid var(--cyan);box-shadow:0 0 90px rgba(47,123,255,.4);padding:34px;position:relative;transform:scale(.88) translateY(30px);transition:.4s cubic-bezier(.2,.9,.3,1.2)}
+#modal.on .box{transform:none}
+.box h3{font-family:var(--head);color:#fff;font-size:1.5rem;margin:4px 0 12px}
+.box p{color:var(--dim)}
+.box ul{margin:18px 0;list-style:none}
+.box li{padding:7px 0 7px 22px;position:relative;font-size:.92rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.box li::before{content:"▸";position:absolute;left:0;color:var(--cyan)}
+.x{position:absolute;top:14px;right:16px;background:none;border:0;color:var(--dim);font-size:1.5rem;cursor:pointer}
+.x:hover{color:var(--red)}
+#toast{position:fixed;bottom:30px;left:50%;transform:translate(-50%,80px);background:var(--cyan);color:#00111f;font-family:var(--mono);font-size:.8rem;padding:10px 22px;z-index:400;transition:.4s;font-weight:600}
+#toast.on{transform:translate(-50%,0)}
+.rv{opacity:0;transform:translateY(46px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.rv.in2{opacity:1;transform:none}
+</style>
 </head>
 <body>
+<div id="prog"></div>
+<div id="cur"></div>
+<canvas id="net"></canvas>
+<canvas id="bg"></canvas>
+<div id="beam"></div>
 
-    <div id="canvas-container"></div>
+<div id="boot"><div class="t">SECURE ENVIRONMENT</div><div class="b"><i></i></div><small>initializing · click to skip</small></div>
 
-    <div class="main-wrapper">
-        <header>
-            <div class="brand">KC // SEC</div>
-            <div class="status-badge">
-                <div class="dot"></div>
-                SYSTEM ONLINE
-            </div>
-        </header>
+<nav>
+  <div class="logo" id="logo"></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#terminal">Terminal</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="status">OPEN TO INTERNSHIPS</div>
+</nav>
 
-        <section class="hero-section">
-            <h1 class="glitch-title">Karen Christina</h1>
-            <p class="tagline">B.E. CSE (Cyber Security) Student @ Dr. Mahalingam College of Engineering & Technology, Pollachi.</p>
-        </section>
-
-        <div class="grid-cards">
-            <div class="card-3d">
-                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="card-title">Cyber Security Focus</div>
-                <div class="card-desc">Specialized in network vulnerability analysis, core security protocols, and ethical hacking fundamentals.</div>
-                <div class="skills-pills">
-                    <span class="pill">Network Security</span>
-                    <span class="pill">Ethical Hacking</span>
-                    <span class="pill">Security Protocols</span>
-                </div>
-            </div>
-
-            <div class="card-3d">
-                <div class="card-icon"><i class="fas fa-terminal"></i></div>
-                <div class="card-title">Core Programming</div>
-                <div class="card-desc">Strong problem-solving foundation with deep interest in failure analysis and algorithm optimization.</div>
-                <div class="skills-pills">
-                    <span class="pill">Python</span>
-                    <span class="pill">C</span>
-                    <span class="pill">C++</span>
-                </div>
-            </div>
-
-            <div class="card-3d">
-                <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
-                <div class="card-title">Environment & Tools</div>
-                <div class="card-desc">Hands-on experience with modern development environments, version control, and security toolsets.</div>
-                <div class="skills-pills">
-                    <span class="pill">VS Code</span>
-                    <span class="pill">Git & GitHub</span>
-                    <span class="pill">Linux Basics</span>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-    Built for Karen Christina &bull; Cyber Security Portfolio 2026 <br><br>
-    <a href="mailto:karenchristina232@gmail.com" style="color: #00ffcc; text-decoration: none; font-size: 14px;">
-        <i class="fas fa-envelope"></i> karenchristina232@gmail.com
-    </a>
-</footer>
-
+<header>
+<section id="hero">
+  <div class="hero-in">
+    <div class="hello">// CYBERSECURITY PORTFOLIO</div>
+    <h1><span class="n" id="heroName"></span><span class="r">CYBERSECURITY STUDENT</span></h1>
+    <div class="role">&gt; <span id="typed"></span><span class="cursor"></span></div>
+    <p class="lead">First-year cyber security student building a strong foundation in networking, operating systems and Python through hands-on labs.</p>
+    <div class="chips"><span class="chip">NETWORKING</span><span class="chip">LINUX</span><span class="chip">WINDOWS</span><span class="chip">PYTHON (LEARNING)</span><span class="chip">TRYHACKME</span></div>
+    <div class="btns">
+      <a class="btn" href="#projects">VIEW MY WORK</a>
+      <a class="btn ghost" href="#contact">CONTACT ME</a>
     </div>
+  </div>
+  <div class="hud">
+    LOCATION: <b id="hudLoc"></b><br>
+    LOCAL TIME: <b id="hudTime"></b><br>
+    THREAT LEVEL: <b>LOW</b><br>
+    ENCRYPTION: <b>AES-256</b>
+  </div>
+  <div class="scroll">SCROLL ↓</div>
+</section>
+</header>
 
-    <script>
-        // Three.js 3D Interactive Cyber Grid Background
-        const container = document.getElementById('canvas-container');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+<main>
+<section id="about" class="rv">
+  <div class="eyebrow">// 01 · about</div>
+  <h2>About Me</h2>
+  <div class="about">
+    <div>
+      <p id="aboutP1"></p>
+      <p>I enjoy understanding <b>how systems work and how they fail</b>, and then learning how to defend them. I practice only on legal lab platforms like TryHackMe and write down what I learn.</p>
+      <p><b>What I'm learning now:</b> networking fundamentals, operating systems and the Linux command line, cyber security fundamentals, Windows fundamentals and Python basics.</p>
+      <p><b>Next:</b> TryHackMe learning paths, OWASP Top 10, my first Python security scripts and beginner CTFs.</p>
+    </div>
+    <div class="code">
+      <div class="bar"><i></i><i></i><i></i><span>profile.json</span></div>
+      <pre id="profileJson"></pre>
+    </div>
+  </div>
+  <div class="stats">
+    <!-- Update these numbers as you progress (rooms completed, projects built) -->
+    <div class="stat"><b data-n="1">0</b><small>YEAR OF STUDY</small></div>
+    <div class="stat"><b data-n="4">0</b><small>FOUNDATION TOPICS</small></div>
+    <div class="stat"><b data-n="1">0</b><small>LEARNING PLATFORM</small></div>
+  </div>
+</section>
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        container.appendChild(renderer.domElement);
+<section id="skills" class="rv">
+  <div class="eyebrow">// 02 · learning</div>
+  <h2>Skills &amp; Learning</h2>
+  <p class="sub">Tap any card to see what I am learning in that area. The bar shows my progress so far.</p>
+  <div class="grid" id="skillGrid"></div>
+</section>
 
-        // Grid & Particle Geometry
-        const geometry = new THREE.BufferGeometry();
-        const count = 800;
-        const positions = new Float32Array(count * 3);
+<section id="projects" class="rv">
+  <div class="eyebrow">// 03 · work</div>
+  <h2>Projects</h2>
+  <p class="sub">Projects I am building as I learn. Tap a project for details.</p>
+  <div class="grid" id="projGrid"></div>
+</section>
 
-        for(let i=0; i<count*3; i++) {
-            positions[i] = (Math.random() - 0.5) * 15;
-        }
+<section id="journey" class="rv">
+  <div class="eyebrow">// 04 · timeline</div>
+  <h2>My Journey</h2>
+  <div class="tl" id="tl"></div>
+</section>
 
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+<section id="terminal" class="rv">
+  <div class="eyebrow">// 05 · interactive</div>
+  <h2>Talk to my Terminal</h2>
+  <p class="sub">Type a command, or tap one below.</p>
+  <div class="term">
+    <div class="bar"><i></i><i></i><i></i><span>guest@portfolio: ~</span></div>
+    <div id="out"></div>
+    <div class="in"><span>guest@portfolio:~$</span><input id="cmd" autocomplete="off" spellcheck="false" aria-label="terminal input"></div>
+  </div>
+  <div class="hint">try: <span id="hints"></span></div>
+</section>
 
-        const material = new THREE.PointsMaterial({
-            size: 0.04,
-            color: 0x00ffcc,
-            transparent: true,
-            opacity: 0.8
-        });
+<section id="contact" class="rv">
+  <div class="eyebrow">// 06 · contact</div>
+  <h2>Let's Connect</h2>
+  <p class="sub">Open to internships, collaborations, CTF teams and mentorship. Reach out anytime.</p>
+  <div class="contact" id="contactGrid"></div>
+</section>
+</main>
 
-        const particles = new THREE.Points(geometry, material);
-        scene.add(particles);
+<footer id="foot"></footer>
 
-        // 3D Wireframe Cyber Cube
-        const cubeGeo = new THREE.BoxGeometry(3, 3, 3);
-        const cubeMat = new THREE.MeshBasicMaterial({
-            color: 0x00ffcc,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.15
-        });
-        const wireCube = new THREE.Mesh(cubeGeo, cubeMat);
-        scene.add(wireCube);
+<div id="modal"><div class="box" id="box"></div></div>
+<div id="toast"></div>
 
-        camera.position.z = 5;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* =====================================================
+   ✏️  EDIT ONLY THIS BLOCK – everything else updates automatically
+   ===================================================== */
+const ME = {
+  name: "KAREN CHRISTINA",                                   // <-- unga full name
+  title: "B.E CSE Cybersecurity Engineering Student",
+  location: "Pollachi, Tamil Nadu, India",
+  college: "Dr. Mahalingam College of Engineering and Technology",
+  email: "karenchristina232@gmail.com",                         // <-- unga email
+  linkedin: "https://www.linkedin.com/in/karen-c-931a37449",     // <-- unga LinkedIn link
+  github: "https://github.com/karenchristina232",          // <-- unga GitHub link
+  about: "I'm a first-year B.E. CSE (Cyber Security) student at Dr. Mahalingam College of Engineering and Technology, Pollachi. I'm building my foundation in networking, operating systems and Python, and practicing through hands-on labs on TryHackMe. I'm looking for an internship where I can learn from real security work."
+};
 
-        // Mouse interaction for 3D rotation
-        let mouseX = 0;
-        let mouseY = 0;
+// l = learning progress in % (update it as you learn). Keep it honest.
+const SKILLS = [
+  {t:"Networking",l:30,s:"TCP/IP, DNS, HTTP, ports",d:["OSI and TCP/IP model, IP addressing, ports and protocols","DNS, DHCP, NAT and how a web request travels","Looking at packets with Wireshark (learning)","Basics of firewalls and VPNs"],tools:["Wireshark","Nmap","ping"]},
+  {t:"Linux & OS Concepts",l:25,s:"Command line, files, permissions",d:["Operating system basics: processes, memory, file systems","Linux commands, users and file permissions","Practicing in a VirtualBox lab and on TryHackMe"],tools:["Linux","Kali","VirtualBox"]},
+  {t:"Cyber Fundamentals",l:25,s:"CIA triad, threats, encryption basics",d:["Confidentiality, Integrity, Availability","Common threats: phishing, malware, social engineering","Encryption vs hashing, authentication vs authorization"],tools:["TryHackMe","Google Cybersecurity Certificate (planned)"]},
+  {t:"Windows Fundamentals",l:20,s:"Users, permissions, Event Viewer",d:["Windows file system, users and groups","Event Viewer and basic log reading","Command Prompt and PowerShell basics"],tools:["Windows","PowerShell","Event Viewer"]},
+  {t:"Python",l:15,s:"Basics and small scripts",d:["Variables, loops, functions and files","Planning small security scripts such as a port scanner","Learning to use Git and GitHub"],tools:["Python","VS Code","Git"]},
+  {t:"Ethical Hacking",l:10,s:"Beginner, legal labs only",d:["Learning the methodology: recon, scanning, enumeration","Practicing only on legal platforms like TryHackMe","Will start web security (OWASP Top 10) after the foundation"],tools:["TryHackMe","Nmap"]}
+];
 
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        });
+// Status of each project is written in the description. Update it when you finish a project.
+const PROJECTS = [
+  {t:"TryHackMe Learning Log",s:"Notes from my TryHackMe rooms and paths",d:"My notes from TryHackMe rooms: what I learned, commands I practiced and key takeaways. I update it as I progress through the Pre-Security path and beyond.",f:["Short notes for each room","Commands practiced in labs","Lessons learned"],tools:["TryHackMe","Markdown"],link:"https://github.com/YOUR_USERNAME"},
+  {t:"Python Port Scanner",s:"Planned: simple TCP port scanner",d:"A beginner project I plan to build after learning Python basics. It will check which ports are open on a machine so I can understand how scanning tools like Nmap work. Status: planned.",f:["Status: planned","Python socket library","For my own lab machines only"],tools:["Python","socket"],link:"https://github.com/YOUR_USERNAME"},
+  {t:"Home Cyber Lab",s:"Planned: VirtualBox + Kali Linux practice lab",d:"A safe, isolated lab on my own laptop for practicing Linux and networking commands. Status: planned.",f:["Status: planned","VirtualBox and Kali Linux","Isolated from real networks"],tools:["VirtualBox","Kali Linux"],link:"https://github.com/YOUR_USERNAME"}
+];
 
-        function animate() {
-            requestAnimationFrame(animate);
+const JOURNEY = [
+  ["2026","Started B.E. CSE (Cyber Security)","Began my degree at Dr. Mahalingam College of Engineering and Technology, Pollachi."],
+  ["2026","Joined TryHackMe","Starting with the Pre-Security path: networking, Linux and web basics."],
+  ["NOW","Building the foundation","Networking, operating systems, cyber fundamentals and Windows fundamentals, in the order my college advised."],
+  ["NEXT","Python and first projects","Python basics, a port scanner, a home lab and the Google Cybersecurity Certificate."],
+  ["GOAL","Internship, then Security Analyst or Pentester","Internships, CTFs and beginner certifications such as Security+ and eJPT."]
+];
+/* ===================== END EDIT BLOCK ===================== */
 
-            particles.rotation.y += 0.001;
-            particles.rotation.x += 0.0005;
+const $=s=>document.querySelector(s);
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),1800)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-            wireCube.rotation.x += 0.003;
-            wireCube.rotation.y += 0.005;
+document.title=ME.name+" | Cybersecurity Portfolio";
+$('#logo').innerHTML=esc(ME.name.split(' ')[0].toUpperCase())+'<i>_</i>SEC';
+$('#heroName').textContent=ME.name.toUpperCase();
+$('#hudLoc').textContent=ME.location.toUpperCase();
+$('#aboutP1').textContent=ME.about;
+$('#profileJson').innerHTML=
+`{\n  <span class="k">"name"</span>: <span class="s">"${esc(ME.name)}"</span>,\n  <span class="k">"role"</span>: <span class="s">"${esc(ME.title)}"</span>,\n  <span class="k">"college"</span>: <span class="s">"${esc(ME.college)}"</span>,\n  <span class="k">"location"</span>: <span class="s">"${esc(ME.location)}"</span>,\n  <span class="k">"focus"</span>: [<span class="s">"Networking"</span>, <span class="s">"Linux"</span>, <span class="s">"Cyber Fundamentals"</span>],\n  <span class="k">"learning"</span>: [<span class="s">"Python"</span>, <span class="s">"Bash"</span>],\n  <span class="k">"year"</span>: <span class="nn">1</span>,\n  <span class="k">"open_to_internship"</span>: <span class="nn">true</span>\n}`;
+$('#foot').innerHTML=`© ${new Date().getFullYear()} ${esc(ME.name)} · Built with HTML, CSS, JS &amp; Three.js`;
 
-            // Camera subtle dynamic move
-            camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
-            camera.position.y += (-mouseY * 0.5 - camera.position.y) * 0.05;
-            camera.lookAt(scene.position);
+const pad=n=>String(n+1).padStart(2,'0');
+$('#skillGrid').innerHTML=SKILLS.map((s,i)=>`<div class="card" data-k="skill" data-i="${i}"><div class="num">${pad(i)}</div><h3>${s.t}</h3><p>${s.s}</p><div class="lvl"><i data-w="${s.l}"></i></div><div class="more">VIEW DETAILS →</div></div>`).join('');
+$('#projGrid').innerHTML=PROJECTS.map((p,i)=>`<div class="card" data-k="proj" data-i="${i}"><div class="num">${pad(i)}</div><h3>${p.t}</h3><p>${p.s}</p>${p.tools.map(x=>`<span class="tag">${x}</span>`).join('')}<div class="more">OPEN PROJECT →</div></div>`).join('');
+$('#tl').innerHTML=JOURNEY.map(j=>`<div><small>${j[0]}</small><h4>${esc(j[1])}</h4><p>${esc(j[2])}</p></div>`).join('');
+$('#contactGrid').innerHTML = `
+  <a class="ct" href="mailto:${esc(ME.email)}">
+    <small>EMAIL</small>
+    <b>${esc(ME.email)}</b>
+  </a>
 
-            renderer.render(scene, camera);
-        }
+  <a class="ct" href="${esc(ME.linkedin)}" target="_blank" rel="noopener">
+    <small>LINKEDIN</small>
+    <b>View LinkedIn Profile</b>
+  </a>
 
-        animate();
+  <a class="ct" href="${esc(ME.github)}" target="_blank" rel="noopener">
+    <small>GITHUB</small>
+    <b>View GitHub Profile</b>
+  </a>
+`;
+document.addEventListener('click',e=>{const b=e.target.closest('[data-copy]');if(b){e.preventDefault();e.stopPropagation();navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy);toast('COPIED ✔')}});
 
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
+const modal=$('#modal'),box=$('#box');
+function openModal(h){box.innerHTML='<button class="x" aria-label="close">×</button>'+h;modal.classList.add('on')}
+modal.addEventListener('click',e=>{if(e.target===modal||e.target.classList.contains('x'))modal.classList.remove('on')});
+addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('on')});
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.card[data-k]');if(!c)return;const i=+c.dataset.i;
+  if(c.dataset.k==='skill'){const s=SKILLS[i];
+    openModal(`<div class="eyebrow">// skill · learning progress ${s.l}%</div><h3>${s.t}</h3><p>${s.s}</p><ul>${s.d.map(x=>`<li>${x}</li>`).join('')}</ul>${s.tools.map(x=>`<span class="tag">${x}</span>`).join('')}`);
+  }else{const p=PROJECTS[i];
+    openModal(`<div class="eyebrow">// project</div><h3>${p.t}</h3><p>${p.d}</p><ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>${p.tools.map(x=>`<span class="tag">${x}</span>`).join('')}<div class="btns"><a class="btn" href="${p.link}" target="_blank" rel="noopener">VIEW ON GITHUB</a></div>`);
+  }
+});
+
+(function(){const b=$('#boot');let d=false;const end=()=>{if(d)return;d=true;b.classList.add('off')};b.addEventListener('click',end);setTimeout(end,2000)})();
+
+(function(){
+  const roles=[ME.title,"Aspiring Ethical Hacker","Learning Through Hands-on Labs","Learning. Practicing. Securing."];
+  const el=$('#typed');let r=0,c=0,del=false;
+  (function type(){const s=roles[r];el.textContent=s.slice(0,c);
+    if(!del&&c++===s.length){del=true;return setTimeout(type,1500)}
+    if(del&&c--===0){del=false;r=(r+1)%roles.length}
+    setTimeout(type,del?30:65)})();
+})();
+setInterval(()=>{$('#hudTime').textContent=new Date().toLocaleTimeString('en-GB')},1000);
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  e.target.classList.add('in2');
+  e.target.querySelectorAll('.lvl i').forEach(b=>b.style.width=b.dataset.w+'%');
+  e.target.querySelectorAll('[data-n]').forEach(n=>{const end=+n.dataset.n,s=n.dataset.s||'';let v=0;
+    const id=setInterval(()=>{v+=Math.max(1,end/40);if(v>=end){v=end;clearInterval(id)}n.textContent=Math.floor(v)+s},35)});
+  io.unobserve(e.target);
+}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(s=>io.observe(s));
+addEventListener('scroll',()=>{const h=document.documentElement;$('#prog').style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%'});
+
+document.addEventListener('mousemove',e=>{
+  const c=e.target.closest&&e.target.closest('.card');if(!c)return;
+  const r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+  c.style.setProperty('--x',px*100+'%');c.style.setProperty('--y',py*100+'%');
+  c.style.transform=`perspective(800px) rotateY(${(px-.5)*12}deg) rotateX(${-(py-.5)*12}deg) translateZ(8px)`;
+});
+document.addEventListener('mouseout',e=>{const c=e.target.closest&&e.target.closest('.card');if(c&&!c.contains(e.relatedTarget))c.style.transform=''});
+
+(function(){
+  const cur=$('#cur');let x=0,y=0,cx=0,cy=0;
+  addEventListener('mousemove',e=>{x=e.clientX-15;y=e.clientY-15});
+  (function loop(){cx+=(x-cx)*.2;cy+=(y-cy)*.2;cur.style.transform=`translate(${cx}px,${cy}px)`;requestAnimationFrame(loop)})();
+  document.addEventListener('mouseover',e=>{cur.classList.toggle('big',!!e.target.closest('a,button,.card'))});
+})();
+
+(function(){
+  const out=$('#out'),inp=$('#cmd');
+  const print=t=>{out.innerHTML+=t+"\n";out.scrollTop=out.scrollHeight};
+  const C={
+    help:()=>"Available commands:\n  whoami     who I am\n  about      about me\n  skills     my skill set\n  projects   what I'm building\n  contact    how to reach me\n  email      my email\n  clear      clear the screen\n  sudo       try it",
+    whoami:()=>`${esc(ME.name)}\n${esc(ME.title)} · ${esc(ME.college)}\n${esc(ME.location)}`,
+    about:()=>esc(ME.about),
+    skills:()=>SKILLS.map(s=>`  [${'█'.repeat(Math.round(s.l/10))}${'░'.repeat(10-Math.round(s.l/10))}] ${s.l}%  ${s.t}`).join('\n'),
+    projects:()=>PROJECTS.map(p=>`  ▸ ${p.t} – ${p.s}`).join('\n'),
+    contact:()=>`  email    : <a href="mailto:${esc(ME.email)}">${esc(ME.email)}</a>\n  phone    : ${esc(ME.phone)}\n  linkedin : <a href="${esc(ME.linkedin)}" target="_blank" rel="noopener">${esc(ME.linkedin)}</a>\n  github   : <a href="${esc(ME.github)}" target="_blank" rel="noopener">${esc(ME.github)}</a>`,
+    email:()=>`<a href="mailto:${esc(ME.email)}">${esc(ME.email)}</a>`,
+    sudo:()=>"Permission denied: this incident will be reported.",
+    ls:()=>"about.txt  skills.db  projects/  contact.txt  secrets/ (permission denied)",
+    clear:()=>{out.innerHTML='';return null}
+  };
+  function run(c){
+    print(`<span style="color:var(--cyan)">guest@portfolio:~$</span> ${esc(c)}`);
+    const k=c.trim().toLowerCase().split(' ')[0];if(!k)return;
+    if(C[k]){const r=C[k]();if(r)print(r)}else print(`command not found: ${esc(k)}. Type <b>help</b>.`);
+  }
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){run(inp.value);inp.value=''}});
+  $('#hints').innerHTML=['help','whoami','skills','projects','contact','sudo'].map(h=>`<button>${h}</button>`).join('');
+  $('#hints').addEventListener('click',e=>{if(e.target.tagName==='BUTTON')run(e.target.textContent)});
+  print("Welcome, visitor. Type <b>help</b> to begin.\n");
+})();
+
+/* ================= 3D: GLOWING DIGITAL SHIELD ================= */
+(function(){
+  if(typeof THREE==='undefined')return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas=$('#bg');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(45,1,.1,100);camera.position.set(0,0,9);
+
+  const CY=0x38d9ff,BL=0x2f7bff;
+  const rig=new THREE.Group();scene.add(rig);   // positioned left/right on resize
+  const hero=new THREE.Group();rig.add(hero);   // shield + rings
+
+  // --- shield shape with keyhole cutout
+  const sh=new THREE.Shape();
+  sh.moveTo(0,1.75);sh.lineTo(1.3,1.3);sh.lineTo(1.3,.1);
+  sh.quadraticCurveTo(1.25,-1.05,0,-1.8);
+  sh.quadraticCurveTo(-1.25,-1.05,-1.3,.1);
+  sh.lineTo(-1.3,1.3);sh.closePath();
+  const hole=new THREE.Path();
+  hole.moveTo(-.2,-.62);hole.lineTo(.2,-.62);hole.lineTo(.12,.1894);
+  hole.absarc(0,.42,.26,-1.0897,4.2313,false);
+  hole.lineTo(-.2,-.62);
+  sh.holes.push(hole);
+  const geo=new THREE.ExtrudeGeometry(sh,{depth:.32,bevelEnabled:true,bevelThickness:.06,bevelSize:.06,bevelSegments:3,curveSegments:28});
+  geo.center();
+
+  // digital binary texture
+  const tc=document.createElement('canvas');tc.width=tc.height=256;
+  const g2=tc.getContext('2d');
+  const gr=g2.createLinearGradient(0,0,256,256);gr.addColorStop(0,'#0a3d9e');gr.addColorStop(1,'#04163f');
+  g2.fillStyle=gr;g2.fillRect(0,0,256,256);
+  g2.font='bold 20px monospace';
+  for(let y=0;y<256;y+=22)for(let x=0;x<256;x+=18){
+    g2.fillStyle=`rgba(56,217,255,${.12+Math.random()*.7})`;
+    g2.fillText(Math.random()>.5?'1':'0',x,y+18);
+  }
+  const tex=new THREE.CanvasTexture(tc);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(1.4,1.4);
+  const mesh=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({map:tex,transparent:true,opacity:.92}));
+  hero.add(mesh);
+  const edges=new THREE.LineSegments(new THREE.EdgesGeometry(geo,25),new THREE.LineBasicMaterial({color:CY}));
+  hero.add(edges);
+  // outer echo outline (glow feel)
+  const echo=new THREE.LineSegments(new THREE.EdgesGeometry(geo,25),new THREE.LineBasicMaterial({color:BL,transparent:true,opacity:.5}));
+  echo.scale.setScalar(1.08);hero.add(echo);
+
+  // glow sprite
+  const gc=document.createElement('canvas');gc.width=gc.height=256;
+  const gx=gc.getContext('2d');const rg=gx.createRadialGradient(128,128,10,128,128,128);
+  rg.addColorStop(0,'rgba(56,160,255,.9)');rg.addColorStop(.4,'rgba(47,123,255,.35)');rg.addColorStop(1,'rgba(47,123,255,0)');
+  gx.fillStyle=rg;gx.fillRect(0,0,256,256);
+  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(gc),blending:THREE.AdditiveBlending,transparent:true,depthWrite:false}));
+  glow.scale.set(9,9,1);glow.position.z=-.6;hero.add(glow);
+
+  // --- rings
+  function ring(r,seg,dash,col,op){
+    const pts=[];for(let i=0;i<=seg;i++){const a=i/seg*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0))}
+    const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineDashedMaterial({color:col,dashSize:dash,gapSize:dash*.6,transparent:true,opacity:op}));
+    l.computeLineDistances();return l;
+  }
+  function ticks(r,n,len,col,op){
+    const p=[];for(let i=0;i<n;i++){const a=i/n*Math.PI*2,L=(i%5===0)?len*1.8:len;
+      p.push(Math.cos(a)*r,Math.sin(a)*r,0,Math.cos(a)*(r+L),Math.sin(a)*(r+L),0)}
+    const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p,3));
+    return new THREE.LineSegments(g,new THREE.LineBasicMaterial({color:col,transparent:true,opacity:op}));
+  }
+  const r1=new THREE.Group();r1.add(ring(2.6,120,.3,CY,.9),ticks(2.75,90,.07,CY,.7));
+  const r2=new THREE.Group();r2.add(ring(3.15,140,.12,BL,.9),ticks(3.3,120,.05,BL,.6));
+  const r3=new THREE.Group();r3.add(ring(3.7,160,.5,CY,.35));
+  const tor=new THREE.Mesh(new THREE.TorusGeometry(2.95,.012,8,160),new THREE.MeshBasicMaterial({color:CY,transparent:true,opacity:.8}));
+  hero.add(r1,r2,r3,tor);
+  r3.rotation.x=1.1;r3.rotation.y=.4;
+
+  // orbiting data nodes
+  const nodes=[];
+  for(let i=0;i<10;i++){
+    const m=new THREE.Mesh(new THREE.SphereGeometry(.05,10,10),new THREE.MeshBasicMaterial({color:i%3?CY:0xffffff}));
+    hero.add(m);nodes.push({m,a:Math.random()*6.28,r:2.4+Math.random()*1.5,s:.2+Math.random()*.5,t:(Math.random()-.5)*1.2});
+  }
+
+  // --- digital wave floor
+  const COLS=110,ROWS=64,wp=new Float32Array(COLS*ROWS*3);
+  const wg=new THREE.BufferGeometry();wg.setAttribute('position',new THREE.BufferAttribute(wp,3));
+  const wave=new THREE.Points(wg,new THREE.PointsMaterial({color:0x2f9bff,size:.045,transparent:true,opacity:.85,blending:THREE.AdditiveBlending,depthWrite:false}));
+  wave.position.set(0,-3.4,-2);wave.rotation.x=-.12;scene.add(wave);
+  function updWave(t){
+    let k=0;
+    for(let j=0;j<ROWS;j++)for(let i=0;i<COLS;i++){
+      const x=(i/COLS-.5)*34,z=(j/ROWS-.5)*20;
+      wp[k++]=x;wp[k++]=Math.sin(x*.5+t*.9)*.45+Math.cos(z*.6+t*.7)*.4;wp[k++]=z;
+    }
+    wg.attributes.position.needsUpdate=true;
+  }
+
+  // dust
+  const dp=[];for(let i=0;i<350;i++)dp.push((Math.random()-.5)*30,(Math.random()-.5)*18,(Math.random()-.5)*14-3);
+  const dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.Float32BufferAttribute(dp,3));
+  scene.add(new THREE.Points(dg,new THREE.PointsMaterial({color:0x7fc8ff,size:.03,transparent:true,opacity:.6})));
+
+  let mx=0,my=0;
+  addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+  function resize(){
+    const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();
+    const m=w<900;rig.position.set(m?0:3.2,m?1.7:.2,0);rig.scale.setScalar(m?.62:1);
+  }
+  addEventListener('resize',resize);resize();
+
+  const clock=new THREE.Clock();
+  function tick(){
+    const t=clock.getElapsedTime();
+    if(!reduce){
+      hero.rotation.y+=(Math.sin(t*.5)*.45+mx*.9-hero.rotation.y)*.05;
+      hero.rotation.x+=((my*.4)-hero.rotation.x)*.05;
+      r1.rotation.z=t*.25;r2.rotation.z=-t*.18;r3.rotation.z=t*.12;
+      glow.material.opacity=.75+Math.sin(t*1.6)*.25;
+      nodes.forEach(n=>{n.a+=n.s*.01;n.m.position.set(Math.cos(n.a)*n.r,Math.sin(n.a)*n.r*.55+n.t,Math.sin(n.a*1.3)*.8)});
+      updWave(t);
+    }
+    camera.position.x+=((mx*.7)-camera.position.x)*.04;camera.lookAt(0,0,0);
+    canvas.style.opacity=Math.max(.2,1-scrollY/(innerHeight*.9));
+    renderer.render(scene,camera);requestAnimationFrame(tick);
+  }
+  updWave(0);tick();
+})();
+/* ================= CYBER BACKGROUND: network + packets + hex rain ================= */
+(function(){
+  const c=document.getElementById('net'),x=c.getContext('2d');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TK=['0xDEADBEEF','SHA-256','TLS 1.3','CVE-2026','nmap -sV','AES-256',':443','SSH','XSS','SQLi','RSA-4096','ICMP','ACCESS GRANTED','FIREWALL: ON'];
+  let W,H,N=[],D=[],T=[],P=[],mx=-999,my=-999;
+  function rs(){
+    W=c.width=innerWidth;H=c.height=innerHeight;
+    const n=Math.min(75,Math.floor(W*H/20000));
+    N=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3}));
+    D=Array.from({length:Math.floor(W/95)},()=>({x:Math.random()*W,y:Math.random()*H,v:.4+Math.random()}));
+    T=Array.from({length:8},()=>({x:Math.random()*W,y:Math.random()*H,v:.1+Math.random()*.2,s:TK[Math.random()*TK.length|0]}));
+  }
+  addEventListener('resize',rs);rs();
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  function f(){
+    x.clearRect(0,0,W,H);
+    x.font='12px JetBrains Mono,monospace';
+    D.forEach(d=>{d.y+=d.v;if(d.y>H+150){d.y=-150;d.x=Math.random()*W}
+      for(let i=0;i<9;i++){x.fillStyle='rgba(56,217,255,'+(.17-i*.018)+')';x.fillText((((d.y/14|0)+i*7)%16).toString(16).toUpperCase(),d.x,d.y-i*15)}});
+    x.font='11px JetBrains Mono,monospace';x.fillStyle='rgba(127,200,255,.16)';
+    T.forEach(t=>{t.x+=t.v;if(t.x>W+120)t.x=-120;x.fillText(t.s,t.x,t.y)});
+    N.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1});
+    for(let i=0;i<N.length;i++){
+      const a=N[i];
+      for(let j=i+1;j<N.length;j++){const b=N[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(d<150){x.strokeStyle='rgba(56,217,255,'+(1-d/150)*.22+')';x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
+      const dm=Math.hypot(a.x-mx,a.y-my);
+      if(dm<190){x.strokeStyle='rgba(47,123,255,'+(1-dm/190)*.55+')';x.beginPath();x.moveTo(a.x,a.y);x.lineTo(mx,my);x.stroke()}
+      x.fillStyle='rgba(191,233,255,.75)';x.beginPath();x.arc(a.x,a.y,1.8,0,6.283);x.fill();
+    }
+    if(P.length<6&&Math.random()<.04&&N.length>2){P.push({a:N[Math.random()*N.length|0],b:N[Math.random()*N.length|0],t:0,r:Math.random()<.15})}
+    P=P.filter(p=>p.t<1);
+    P.forEach(p=>{p.t+=.012;const px=p.a.x+(p.b.x-p.a.x)*p.t,py=p.a.y+(p.b.y-p.a.y)*p.t;
+      x.shadowBlur=14;x.shadowColor=p.r?'#ff4d6d':'#38d9ff';x.fillStyle=p.r?'#ff4d6d':'#ffffff';
+      x.beginPath();x.arc(px,py,2.6,0,6.283);x.fill();x.shadowBlur=0});
+    if(!reduce)requestAnimationFrame(f);
+  }
+  f();
+})();
+</script>
 </body>
 </html>
